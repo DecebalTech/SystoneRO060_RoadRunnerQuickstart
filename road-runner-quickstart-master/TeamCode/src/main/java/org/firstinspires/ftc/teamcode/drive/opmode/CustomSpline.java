@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.mecanum.SampleMecanumDriveBase;
 import org.firstinspires.ftc.teamcode.drive.mecanum.SampleMecanumDriveREV;
 
+import java.util.Vector;
+
 @Autonomous(group = "drive")
 public class CustomSpline extends LinearOpMode {
 
@@ -21,27 +23,35 @@ public class CustomSpline extends LinearOpMode {
         waitForStart();
 
         if (isStopRequested()) return;
-        drive.setPoseEstimate(new Pose2d(-36,-70,(float)Math.PI));
+        drive.setPoseEstimate(new Pose2d(-36,-66,Math.PI));
         drive.followTrajectorySync(
 
                 drive.trajectoryBuilder()
-                        .strafeTo(new Vector2d(-47,-35))
+                        .strafeTo(new Vector2d(-47,-30))
+                        .strafeTo(new Vector2d(-25,-50))
                         .setReversed(true)
-                        .splineTo(new Pose2d(-20,-42,(float)Math.PI))
-                        .lineTo(new Vector2d(40,-40))
+                        .splineTo(new Pose2d(40,-50))
                         .setReversed(false)
                         .build()
 
         );
-        sleep(1000);
+        sleep(1);
         drive.followTrajectorySync(
 
                 drive.trajectoryBuilder()
-                        .lineTo(new Vector2d(-50,-40))
+                        .splineTo(new Pose2d(-55,-50,Math.PI))
                         .build()
 
         );
+        sleep(1);
+        drive.followTrajectorySync(
 
+                drive.trajectoryBuilder()
+                        .setReversed(true)
+                        .splineTo(new Pose2d(40,-50,Math.PI))
+                        .build()
+
+        );
 
 
     }
